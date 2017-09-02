@@ -1,0 +1,33 @@
+group 'com.sky.account.manager'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    ext.kotlin_version = '1.0.5'
+
+    repositories {
+        mavenCentral()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'kotlin'
+
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    maven { url 'https://oss.jfrog.org/libs-snapshot' }
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compile 'com.jfoenix:jfoenix:1.4.0'
+    compile 'com.google.guava:guava:23.0'
+    compile 'io.reactivex.rxjava2:rxjava:2.0.0-DP0-SNAPSHOT'
+    compile 'com.google.code.gson:gson:2.8.1'
+    compile 'log4j:log4j:1.2.17'
+    compile 'org.xerial:sqlite-jdbc:3.20.0'
+    testCompile 'junit:junit:4.12'
+}

@@ -1,0 +1,4 @@
+rootProject.name = 'polarbear'
+include 'app'
+findProject(':app')?.name = 'polarbear'
+
