@@ -53,7 +53,7 @@ class HomeController : Initializable {
         var data = ArrayList<AccountModel>()
 
         for (i in 1..100) {
-            data.add(AccountModel(i, "sky", "123456", "test", "2017.9.4"))
+            data.add(AccountModel(i, 0, "sky", "123456", "test", "2017.9.4"))
         }
 
         return data;
