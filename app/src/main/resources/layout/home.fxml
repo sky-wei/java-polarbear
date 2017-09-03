@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sky.account.manager.controller.HomeController">
+   <children>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Close" />
+                  <MenuItem mnemonicParsing="false" text="Quit" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Edit">
+            <items>
+              <MenuItem mnemonicParsing="false" text="Delete" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <HBox alignment="CENTER" prefHeight="70.0" prefWidth="700.0">
+         <children>
+            <JFXTextField minWidth="400.0" prefHeight="26.0" />
+            <JFXButton mnemonicParsing="false" text="search">
+               <HBox.margin>
+                  <Insets left="40.0" />
+               </HBox.margin>
+            </JFXButton>
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
+      <SplitPane dividerPositions="0.7" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" VBox.vgrow="ALWAYS">
+         <VBox.margin>
+            <Insets left="20.0" right="20.0" />
+         </VBox.margin>
+         <items>
+            <TableView fx:id="tvTable" prefHeight="-Infinity" prefWidth="-Infinity" onMouseClicked="#onTableMouseEvent">
+              <columns>
+                <TableColumn fx:id="name" minWidth="150.0" text="用户名" />
+                <TableColumn fx:id="password" minWidth="120.0" text="密码" />
+                <TableColumn fx:id="desc" minWidth="150.0" text="描述" />
+                <TableColumn fx:id="createTime" minWidth="120.0" text="创建时间" />
+              </columns>
+            </TableView>
+            <JFXTextArea editable="false" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" />
+         </items>
+      </SplitPane>
+      <HBox alignment="CENTER_RIGHT" minHeight="20.0" prefWidth="200.0">
+         <children>
+            <Label text="vresion:2.0">
+               <font>
+                  <Font size="12.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Label>
+         </children></HBox>
+   </children>
+</VBox>
