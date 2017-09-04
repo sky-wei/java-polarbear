@@ -15,7 +15,7 @@ class DBManagerImplTest {
     @Test
     fun release() {
 
-        val dbManager = DBManagerImpl as DBManager
+        val dbManager = DBManagerImpl() as DBManager
 
         var admin = AdminEntity(0, "sky", "jingcai1314", "test", System.currentTimeMillis())
 

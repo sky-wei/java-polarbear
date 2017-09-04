@@ -15,7 +15,7 @@ import com.sky.account.manager.util.FileUtil
 /**
  * Created by sky on 17-9-4.
  */
-object DBManagerImpl : DBManager {
+class DBManagerImpl : DBManager {
 
     private val DIR = "database/"
     private val URL = "jdbc:sqlite:$DIR${Constant.Database.NAME}"

@@ -1,6 +1,6 @@
-package com.sky.account.manager.manger
+package com.sky.account.manager.data.disk
 
-import com.sky.account.manager.exception.HandlerException
+import com.sky.account.manager.data.DataException
 import com.sky.account.manager.model.AccountModel
 import com.sky.account.manager.model.AdminModel
 import java.io.File
@@ -8,7 +8,7 @@ import java.io.File
 /**
  * Created by sky on 17-9-3.
  */
-interface AccoutManager {
+interface AccountManager {
 
     fun createAdmin(model: AdminModel): Boolean
 
@@ -18,7 +18,7 @@ interface AccoutManager {
 
     fun updateAdmin(model: AdminModel): Boolean
 
-    fun search(type: Int, key: String)
+    fun search(type: Int, key: String): List<AccountModel>
 
     fun createAccount(model: AccountModel): Boolean
 
@@ -26,10 +26,10 @@ interface AccoutManager {
 
     fun updateAccount(model: AccountModel): Boolean
 
-    @Throws(HandlerException::class)
+    @Throws(DataException::class)
     fun encryptAccount(model: AccountModel): AccountModel
 
-    @Throws(HandlerException::class)
+    @Throws(DataException::class)
     fun decryptionAccount(model: AccountModel): AccountModel
 
     fun importAccount(models: List<AccountModel>): Boolean

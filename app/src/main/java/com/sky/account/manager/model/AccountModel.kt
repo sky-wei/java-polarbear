@@ -1,10 +1,9 @@
 package com.sky.account.manager.model
 
-import java.io.Serializable
-
 /**
  * Created by sky on 17-9-3.
  */
-data class AccountModel(val id: Int, val adminId: Int, val name: String, val password: String, val desc: String, val createTime: String) : Serializable {
+data class AccountModel(var id: Int, var adminId: Int, var name: String, var password: String, var url: String, var desc: String, var createTime: Long) {
 
+    constructor(): this(0, 0, "", "", "", "", 0L)
 }

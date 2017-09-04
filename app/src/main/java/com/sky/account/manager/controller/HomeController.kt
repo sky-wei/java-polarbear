@@ -49,13 +49,6 @@ class HomeController : Initializable {
     }
 
     private fun newData(): List<AccountModel> {
-
-        var data = ArrayList<AccountModel>()
-
-        for (i in 1..100) {
-            data.add(AccountModel(i, 0, "sky", "123456", "test", "2017.9.4"))
-        }
-
-        return data;
+        return (1..100).map { AccountModel(it, 0, "sky", "123456", "test", "", 0L) }
     }
 }
