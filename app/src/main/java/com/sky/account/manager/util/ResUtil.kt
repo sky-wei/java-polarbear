@@ -24,4 +24,8 @@ object ResUtil {
     fun <T> getLayout(name: String): T {
         return FXMLLoader.load(getResource(name))
     }
+
+    fun getFXMLLoader(name: String): FXMLLoader {
+        return FXMLLoader(getResource(name))
+    }
 }
