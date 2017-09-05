@@ -7,6 +7,8 @@ import java.io.File
 
 /**
  * Created by sky on 17-9-3.
+ *
+ * 这个类需要进行修改，部分功能不应该放在这里
  */
 interface AccountManager {
 

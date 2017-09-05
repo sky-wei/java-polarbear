@@ -1,6 +1,9 @@
 package com.sky.account.manager.controller
 
-import com.sky.account.manager.PolarBear
+import com.jfoenix.controls.JFXPasswordField
+import com.jfoenix.controls.JFXTextField
+import com.sky.account.manager.base.BaseController
+import javafx.fxml.FXML
 import javafx.fxml.Initializable
 import java.net.URL
 import java.util.*
@@ -8,15 +11,16 @@ import java.util.*
 /**
  * Created by sky on 17-8-17.
  */
-class LoginController : Initializable, AppController {
+class LoginController : BaseController(), Initializable {
 
-    lateinit var mPolarBear: PolarBear
+    @FXML lateinit var jtfName: JFXTextField
+    @FXML lateinit var jtfPassword: JFXPasswordField
 
     override fun initialize(location: URL?, resources: ResourceBundle?) {
 
     }
 
-    override fun setPolarBear(bear: PolarBear) {
-        mPolarBear = bear
+    fun onLoginAction() {
+        setAppStage("PolarBear - sky", "layout/home.fxml", 650.0, 500.0)
     }
 }

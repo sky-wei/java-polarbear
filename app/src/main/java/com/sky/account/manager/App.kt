@@ -2,17 +2,12 @@ package com.sky.account.manager
 
 import com.sky.account.manager.controller.AppController
 import com.sky.account.manager.data.disk.AccountManager
+import com.sky.account.manager.data.disk.ConfigurationManager
 import com.sky.account.manager.data.disk.DBManager
 import com.sky.account.manager.data.disk.impl.AccountManagerImpl
+import com.sky.account.manager.data.disk.impl.ConfigurationManagerImpl
 import com.sky.account.manager.data.disk.impl.DBManagerImpl
-import com.sky.account.manager.util.ResUtil
-import com.sun.org.apache.regexp.internal.REUtil
 import javafx.application.Application
-import javafx.application.Platform
-import javafx.fxml.FXMLLoader
-import javafx.scene.Parent
-import javafx.scene.Scene
-import javafx.scene.image.Image
 import javafx.stage.Stage
 
 /**
@@ -22,7 +17,8 @@ class App : Application(), PolarBear {
 
     lateinit var mDbManager: DBManager
     lateinit var mAccountManager: AccountManager
-    lateinit var mStage: Stage
+    lateinit var mConfigurationManager: ConfigurationManager
+    lateinit var mAppController: AppController
 
     override fun init() {
         super.init()
@@ -30,39 +26,12 @@ class App : Application(), PolarBear {
         // 初始化
         mDbManager = DBManagerImpl()
         mAccountManager = AccountManagerImpl(mDbManager)
+        mConfigurationManager = ConfigurationManagerImpl()
+        mAppController = AppController(this)
     }
 
     override fun start(primaryStage: Stage) {
-
-        mStage = primaryStage
-
-        primaryStage.icons.add(Image(ResUtil.getResourceUrl("image/icon.png")))
-        primaryStage.isResizable = false
-        primaryStage.setOnCloseRequest {
-            Platform.exit()
-        }
-
-        val admins = mDbManager.getAdminDao().queryForAll()
-
-        if (admins.isEmpty()) {
-
-            val loader = ResUtil.getFXMLLoader("layout/register.fxml")
-            val scene = Scene(loader.load(), 400.0, 300.0)
-            loader.getController<AppController>().setPolarBear(this)
-
-            primaryStage.title = "PolarBear - 注册"
-            primaryStage.scene = scene
-        } else {
-
-            val loader = ResUtil.getFXMLLoader("layout/login.fxml")
-            val scene = Scene(loader.load(), 400.0, 300.0)
-            loader.getController<AppController>().setPolarBear(this)
-
-            primaryStage.title = "PolarBear - 登录"
-            primaryStage.scene = scene
-        }
-
-        primaryStage.show()
+        mAppController.start(primaryStage)
     }
 
     override fun stop() {
@@ -78,6 +47,14 @@ class App : Application(), PolarBear {
 
     override fun getDBManager(): DBManager {
         return mDbManager
+    }
+
+    override fun getConfigurationManager(): ConfigurationManager {
+        return mConfigurationManager
+    }
+
+    override fun getAppController(): AppController {
+        return mAppController
     }
 }
 

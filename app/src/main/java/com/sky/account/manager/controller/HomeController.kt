@@ -1,6 +1,6 @@
 package com.sky.account.manager.controller
 
-import com.sky.account.manager.PolarBear
+import com.sky.account.manager.base.BaseController
 import com.sky.account.manager.model.AccountModel
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
@@ -16,7 +16,7 @@ import java.util.*
 /**
  * Created by sky on 17-8-17.
  */
-class HomeController : Initializable, AppController {
+class HomeController : BaseController(), Initializable {
 
     @FXML lateinit var tvTable: TableView<AccountModel>
     @FXML lateinit var name: TableColumn<AccountModel, String>
@@ -24,15 +24,9 @@ class HomeController : Initializable, AppController {
     @FXML lateinit var desc: TableColumn<AccountModel, String>
     @FXML lateinit var createTime: TableColumn<AccountModel, String>
 
-    lateinit var mPolarBear: PolarBear
-
     override fun initialize(location: URL?, resources: ResourceBundle?) {
 
         initTable()
-    }
-
-    override fun setPolarBear(bear: PolarBear) {
-        mPolarBear = bear
     }
 
     private fun initTable() {
@@ -56,6 +50,6 @@ class HomeController : Initializable, AppController {
     }
 
     private fun newData(): List<AccountModel> {
-        return (1..100).map { AccountModel(it, 0, "sky", "**********************", "test", "淡淡的忧伤", System.currentTimeMillis()) }
+        return (1..2).map { AccountModel(it, 0, "sky", "**********************", "test", "淡淡的忧伤", System.currentTimeMillis()) }
     }
 }

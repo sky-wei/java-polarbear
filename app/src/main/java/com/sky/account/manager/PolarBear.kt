@@ -1,6 +1,8 @@
 package com.sky.account.manager
 
+import com.sky.account.manager.controller.AppController
 import com.sky.account.manager.data.disk.AccountManager
+import com.sky.account.manager.data.disk.ConfigurationManager
 import com.sky.account.manager.data.disk.DBManager
 
 /**
@@ -8,7 +10,11 @@ import com.sky.account.manager.data.disk.DBManager
  */
 interface PolarBear {
 
+    fun getConfigurationManager(): ConfigurationManager
+
     fun getAccountManager(): AccountManager
 
     fun getDBManager(): DBManager
+
+    fun getAppController(): AppController
 }
