@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXPasswordField?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Button?>
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111"
           stylesheets="@../style/register.css" fx:controller="com.sky.account.manager.controller.RegisterController">
   <columnConstraints>
@@ -36,28 +36,28 @@
             <Insets right="10.0" />
          </GridPane.margin>
       </Text>
-      <JFXTextField fx:id="jtfName" GridPane.columnIndex="1" GridPane.rowIndex="1" >
+      <TextField fx:id="jtfName" GridPane.columnIndex="1" GridPane.rowIndex="1" >
          <GridPane.margin>
             <Insets left="10.0" right="60.0" />
          </GridPane.margin>
-      </JFXTextField>
-      <JFXPasswordField fx:id="jtfPassword" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      </TextField>
+      <PasswordField fx:id="jtfPassword" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets left="10.0" right="60.0" />
          </GridPane.margin>
-      </JFXPasswordField>
-      <JFXPasswordField fx:id="jftTwicePassword" GridPane.columnIndex="1" GridPane.rowIndex="3" onKeyPressed="#onKeyPressedAction">
+      </PasswordField>
+      <PasswordField fx:id="jftTwicePassword" GridPane.columnIndex="1" GridPane.rowIndex="3" onKeyPressed="#onKeyPressedAction">
          <GridPane.margin>
             <Insets left="10.0" right="60.0" />
          </GridPane.margin>
-      </JFXPasswordField>
-      <JFXButton fx:id="jBtm" mnemonicParsing="false" text="注册" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" onAction="#onRegisterAction">
+      </PasswordField>
+      <Button fx:id="jBtm" mnemonicParsing="false" text="注册" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" onAction="#onRegisterAction">
          <font>
             <Font size="14.0" />
          </font>
          <GridPane.margin>
             <Insets bottom="30.0" right="60.0" />
          </GridPane.margin>
-      </JFXButton>
+      </Button>
    </children>
 </GridPane>

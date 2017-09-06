@@ -4,49 +4,46 @@
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Font?>
-
 <?import javafx.scene.text.Text?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="650.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.sky.account.manager.controller.HomeController" stylesheets="@../style/home.css">
    <children>
       <MenuBar >
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu fx:id="menu" mnemonicParsing="false" text="菜单(_M)">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
-                  <MenuItem mnemonicParsing="false" text="Quit" />
+                <MenuItem fx:id="miNewAccount" mnemonicParsing="false" text="新建账号" accelerator="Ctrl+N" onAction="#onMenuAction"/>
+                <MenuItem fx:id="mtModifyPassword" mnemonicParsing="false" text="修改密码" onAction="#onMenuAction" />
+                <SeparatorMenuItem />
+                <MenuItem fx:id="miImportAccount" mnemonicParsing="false" text="导入账号" onAction="#onMenuAction" />
+                <MenuItem fx:id="miExportAccount" mnemonicParsing="false" text="导出账号" onAction="#onMenuAction" />
+                <SeparatorMenuItem />
+                <MenuItem fx:id="miExit" mnemonicParsing="false" text="退出" accelerator="Ctrl+Q" onAction="#onMenuAction" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
+          <Menu fx:id="settings" mnemonicParsing="false" text="设置(_S)">
             <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
+              <MenuItem fx:id="miSettings" mnemonicParsing="false" text="程序设置" onAction="#onMenuAction" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu fx:id="help" mnemonicParsing="false" text="帮助(_H)">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem fx:id="miAbout" mnemonicParsing="false" text="关于程序" onAction="#onMenuAction" />
             </items>
           </Menu>
         </menus>
       </MenuBar>
       <HBox alignment="CENTER" prefHeight="70.0" prefWidth="700.0">
          <children>
-            <JFXTextField minWidth="400.0" prefHeight="26.0" />
-            <JFXButton mnemonicParsing="false" text="search">
+            <TextField minWidth="400.0" prefHeight="26.0" onKeyPressed="#onSearchKeyPressedAction" />
+            <Button mnemonicParsing="false" text="search" onAction="#onSearchAction">
                <HBox.margin>
                   <Insets left="40.0" />
                </HBox.margin>
-            </JFXButton>
+            </Button>
          </children>
          <VBox.margin>
             <Insets />
@@ -59,18 +56,18 @@
          <items>
             <TableView fx:id="tvTable" prefHeight="-Infinity" prefWidth="-Infinity" onMouseClicked="#onTableMouseEvent">
               <columns>
-                <TableColumn fx:id="name" minWidth="150.0" text="用户名" />
-                <TableColumn fx:id="password" minWidth="120.0" text="密码" />
-                <TableColumn fx:id="desc" minWidth="150.0" text="描述" />
-                <TableColumn fx:id="createTime" minWidth="120.0" text="创建时间" />
+                <TableColumn fx:id="name" text="用户名" />
+                <TableColumn fx:id="password" text="密码" />
+                <TableColumn fx:id="url" text="网址" />
+                <TableColumn fx:id="desc"  text="描述" />
               </columns>
             </TableView>
-            <JFXTextArea editable="false" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" />
+            <TextArea editable="false" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" />
          </items>
       </SplitPane>
       <HBox alignment="CENTER_RIGHT" minHeight="20.0" prefWidth="200.0">
          <children>
-            <Text text="vresion:2.0">
+            <Text fx:id="tVersion" text="vresion:2.0">
                <font>
                   <Font size="12.0" />
                </font>

@@ -1,8 +1,5 @@
 package com.sky.account.manager.controller
 
-import com.jfoenix.controls.JFXButton
-import com.jfoenix.controls.JFXPasswordField
-import com.jfoenix.controls.JFXTextField
 import com.sky.account.manager.base.BaseController
 import com.sky.account.manager.model.AdminModel
 import com.sky.account.manager.util.DialogUtil
@@ -11,6 +8,9 @@ import javafx.application.Platform
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
 import javafx.scene.control.Alert
+import javafx.scene.control.Button
+import javafx.scene.control.PasswordField
+import javafx.scene.control.TextField
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
 import java.net.URL
@@ -19,12 +19,12 @@ import java.util.*
 /**
  * Created by sky on 17-8-17.
  */
-class RegisterController : BaseController(), Initializable {
+class RegisterController : BaseController<Any, Any>(), Initializable {
 
-    @FXML lateinit var jtfName: JFXTextField
-    @FXML lateinit var jtfPassword: JFXPasswordField
-    @FXML lateinit var jftTwicePassword: JFXPasswordField
-    @FXML lateinit var jBtm: JFXButton
+    @FXML lateinit var jtfName: TextField
+    @FXML lateinit var jtfPassword: PasswordField
+    @FXML lateinit var jftTwicePassword: PasswordField
+    @FXML lateinit var jBtm: Button
 
     override fun initialize(location: URL?, resources: ResourceBundle?) {
     }

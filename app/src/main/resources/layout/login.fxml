@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
-<?import com.jfoenix.controls.JFXPasswordField?>
-<?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -10,6 +7,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Button?>
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" stylesheets="@../style/login.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sky.account.manager.controller.LoginController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="120.0" />
@@ -40,17 +40,17 @@
             <Insets right="10.0" />
          </GridPane.margin>
       </Text>
-      <JFXTextField fx:id="jtfName" GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <TextField fx:id="jtfName" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="10.0" right="60.0" />
          </GridPane.margin>
-      </JFXTextField>
-      <JFXPasswordField fx:id="jtfPassword" GridPane.columnIndex="1" GridPane.rowIndex="2" onKeyPressed="#onKeyPressedAction">
+      </TextField>
+      <PasswordField fx:id="jtfPassword" GridPane.columnIndex="1" GridPane.rowIndex="2" onKeyPressed="#onKeyPressedAction">
          <GridPane.margin>
             <Insets left="10.0" right="60.0" />
          </GridPane.margin>
-      </JFXPasswordField>
-      <JFXButton fx:id="jBtm" mnemonicParsing="false" text="登录" GridPane.columnSpan="2147483647" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" onAction="#onLoginAction">
+      </PasswordField>
+      <Button fx:id="jBtm" mnemonicParsing="false" text="登录" GridPane.columnSpan="2147483647" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="CENTER" onAction="#onLoginAction">
          <font>
             <Font size="14.0" />
          </font>
@@ -60,6 +60,6 @@
          <GridPane.margin>
             <Insets bottom="20.0" right="60.0" />
          </GridPane.margin>
-      </JFXButton>
+      </Button>
    </children>
 </GridPane>
