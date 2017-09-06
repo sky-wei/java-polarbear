@@ -45,7 +45,7 @@
             <Insets left="10.0" right="60.0" />
          </GridPane.margin>
       </JFXTextField>
-      <JFXPasswordField fx:id="jtfPassword" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <JFXPasswordField fx:id="jtfPassword" GridPane.columnIndex="1" GridPane.rowIndex="2" onKeyPressed="#onKeyPressedAction">
          <GridPane.margin>
             <Insets left="10.0" right="60.0" />
          </GridPane.margin>
