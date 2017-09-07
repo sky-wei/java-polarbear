@@ -2,9 +2,9 @@ package com.sky.account.manager.controller
 
 import com.sky.account.manager.Constant
 import com.sky.account.manager.base.BaseController
-import com.sky.account.manager.data.disk.AccountManager
 import com.sky.account.manager.model.AccountModel
 import com.sky.account.manager.util.DialogUtil
+import com.sky.account.manager.util.Log
 import javafx.application.Platform
 import javafx.collections.FXCollections
 import javafx.event.ActionEvent
@@ -12,12 +12,17 @@ import javafx.fxml.FXML
 import javafx.fxml.Initializable
 import javafx.scene.control.*
 import javafx.scene.control.cell.PropertyValueFactory
-import javafx.scene.input.*
+import javafx.scene.input.KeyCode
+import javafx.scene.input.KeyEvent
+import javafx.scene.input.MouseButton
+import javafx.scene.input.MouseEvent
 import javafx.scene.text.Text
 import javafx.stage.Stage
-import java.io.File
+import java.awt.Desktop
+import java.awt.Toolkit
+import java.net.URI
 import java.net.URL
-import java.nio.file.Files
+import java.text.SimpleDateFormat
 import java.util.*
 
 /**
@@ -46,7 +51,13 @@ class HomeController : BaseController<Any>(), Initializable {
     @FXML lateinit var password: TableColumn<AccountModel, String>
     @FXML lateinit var url: TableColumn<AccountModel, String>
     @FXML lateinit var desc: TableColumn<AccountModel, String>
+    @FXML lateinit var jtaExpand: TextArea
 
+    lateinit var tvTableSelection: TableView.TableViewSelectionModel<AccountModel>
+
+    companion object {
+        val DATA_FORMAT = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    }
 
     override fun initialize(location: URL?, resources: ResourceBundle?) {
 
@@ -58,6 +69,8 @@ class HomeController : BaseController<Any>(), Initializable {
         password.cellValueFactory = PropertyValueFactory<AccountModel, String>("password")
         url.cellValueFactory = PropertyValueFactory<AccountModel, String>("url")
         desc.cellValueFactory = PropertyValueFactory<AccountModel, String>("desc")
+
+        tvTableSelection = tvTable.selectionModel
     }
 
     override fun initParam(stage: Stage, param: Any) {
@@ -72,17 +85,78 @@ class HomeController : BaseController<Any>(), Initializable {
         when(event.source) {
             miNewAccount -> {
                 // 创建账号
-                showNewAccountDialog()
+                showEditAccountDialog("PolarBear - 新建账号", AccountModel()) {
+                    Platform.runLater { createAccount(it) }
+                }
             }
-            mtModifyPassword -> println("创建")
-            miImportAccount -> println("创建")
-            miExportAccount -> println("创建")
+            mtModifyPassword -> {
+                // 修改密码
+                DialogUtil.showMessage(Alert.AlertType.INFORMATION, "功能暂未实现!")
+            }
+            miImportAccount -> {
+                // 导入账号
+                DialogUtil.showMessage(Alert.AlertType.INFORMATION, "功能暂未实现!")
+            }
+            miExportAccount -> {
+                // 导出账号
+                DialogUtil.showMessage(Alert.AlertType.INFORMATION, "功能暂未实现!")
+            }
             miExit -> {
                 // 退出程序
                 getAppController().exitApp()
             }
-            miSettings -> println("创建")
-            miAbout -> println("创建")
+            miSettings -> {
+                // 程序设置
+                DialogUtil.showMessage(Alert.AlertType.INFORMATION, "功能暂未实现!")
+            }
+            miAbout -> {
+                // 关于
+                DialogUtil.showMessage(Alert.AlertType.INFORMATION, "功能暂未实现!")
+            }
+        }
+    }
+
+    private fun onMenuAction(item: MenuItem, event: ActionEvent) {
+
+        if (!isTabSelected()) return
+
+        val accountManager = getAccountManager()
+
+        // 获取选择的内容
+        val selectedItem = getTabSelectedItem()
+
+        when(item.text) {
+            "打开" -> {
+                // 打开浏览器
+//                try {
+//                    Desktop.getDesktop()
+//                            .browse(URI("http://www.baidu.com"))
+//                } catch (tr: Throwable) {
+//                    Log.e("打开页面异常", tr)
+//                }
+            }
+            "显示" -> {
+                // 显示账号详情
+                getAppController().showDialog(
+                        "PolarBear - 账号详情", "layout/details.fxml",
+                        400.0, 260.0,
+                        accountManager.decryptionAccount(selectedItem)) {
+                    /** 什么也不用做 */
+                }
+            }
+            "修改" -> {
+                // 编辑账号
+                showEditAccountDialog(
+                        "PolarBear - 修改账号",
+                        accountManager.decryptionAccount(selectedItem)) {
+                    Platform.runLater { editAccount(it) }
+                }
+            }
+            "删除" -> {
+                // 删除账号
+                accountManager.deleteAccount(selectedItem)
+                Platform.runLater { onSearchAction() }
+            }
         }
     }
 
@@ -107,22 +181,41 @@ class HomeController : BaseController<Any>(), Initializable {
 
     fun onTableMouseEvent(event: MouseEvent) {
 
-        if (MouseButton.SECONDARY == event.button) {
+        if (MouseButton.SECONDARY == event.button
+                && isTabSelected()) {
 
-            println(">>>>>>>>>>>>>>>>>>>>>> $event")
+            val menu = ContextMenu(
+                    buildMenuItem("打开"),
+                    buildMenuItem("显示"),
+                    buildMenuItem("修改"),
+                    buildMenuItem("删除"))
+
+            // 显示菜单
+            menu.show(getStage(), event.screenX, event.screenY)
         }
+
+        setExpandAccountInfo(getTabSelectedIndex())
     }
 
-    private fun showNewAccountDialog() {
+    private fun buildMenuItem(name: String): MenuItem {
+
+        val menuItem = MenuItem(name)
+
+        menuItem.addEventHandler(ActionEvent.ACTION) {
+
+            // 处理菜单事件
+            onMenuAction(it.source as MenuItem, it)
+        }
+
+        return menuItem
+    }
+
+    private fun showEditAccountDialog(title: String, account: AccountModel, callback: (AccountModel) -> Unit) {
 
         getAppController().showDialog(
-                "PolarBear - 新建账号",
-                "layout/edit_account.fxml",
+                title, "layout/edit_account.fxml",
                 400.0, 300.0,
-                AccountModel()) {
-            // 创建账号
-            createAccount(it)
-        }
+                account, callback)
     }
 
     private fun createAccount(account: AccountModel) {
@@ -141,5 +234,54 @@ class HomeController : BaseController<Any>(), Initializable {
 
         DialogUtil.showMessage(
                 Alert.AlertType.ERROR, "创建账号异常，请查看相关日志信息！")
+    }
+
+    private fun editAccount(account: AccountModel) {
+
+        val accountManager = getAccountManager()
+
+        if (accountManager.updateAccount(account)) {
+            // 刷新列表
+            Platform.runLater { onSearchAction() }
+            return
+        }
+
+        DialogUtil.showMessage(
+                Alert.AlertType.ERROR, "修改账号异常，请查看相关日志信息！")
+    }
+
+    private fun setExpandAccountInfo(index: Int) {
+
+        if (index < 0) {
+            // 设置扩展内容
+            jtaExpand.text = ""
+            return
+        }
+
+        // 获取选择内容
+        val account = getTabSelectedItem()
+
+        val info = StringBuilder().apply {
+            append("用户名 : ${account.name}\n")
+            append("密码 :  ${account.password}\n")
+            append("网站地址 : ${account.url}\n")
+            append("描述内容 : ${account.desc}\n")
+            append("创建时间 : ${DATA_FORMAT.format(account.createTime)}")
+        }
+
+        // 设置扩展内容
+        jtaExpand.text = info.toString()
+    }
+
+    private fun getTabSelectedIndex(): Int {
+        return tvTableSelection.selectedIndex
+    }
+
+    private fun getTabSelectedItem(): AccountModel {
+        return tvTableSelection.selectedItem
+    }
+
+    private fun isTabSelected(): Boolean {
+        return tvTableSelection.selectedIndex > -1
     }
 }

@@ -7,8 +7,10 @@ import com.sky.account.manager.data.disk.DBManager
 import com.sky.account.manager.data.disk.impl.AccountManagerImpl
 import com.sky.account.manager.data.disk.impl.ConfigurationManagerImpl
 import com.sky.account.manager.data.disk.impl.DBManagerImpl
+import com.sky.account.manager.util.DialogUtil
 import com.sky.account.manager.util.ResUtil
 import javafx.application.Application
+import javafx.application.Platform
 import javafx.scene.text.Font
 import javafx.stage.Stage
 
@@ -17,16 +19,22 @@ import javafx.stage.Stage
  */
 class App : Application(), PolarBear {
 
-    lateinit var mDbManager: DBManager
-    lateinit var mAccountManager: AccountManager
-    lateinit var mConfigurationManager: ConfigurationManager
-    lateinit var mAppController: AppController
+    private lateinit var mDbManager: DBManager
+    private lateinit var mAccountManager: AccountManager
+    private lateinit var mConfigurationManager: ConfigurationManager
+    private lateinit var mAppController: AppController
 
     override fun init() {
         super.init()
 
+        // 加载字体
         Font.loadFont(
                 ResUtil.getResourceUrl("font/hwxh.ttf"), 14.0)
+
+        // 异常处理
+        Thread.setDefaultUncaughtExceptionHandler {
+            t, e -> Platform.runLater { DialogUtil.showException(t, e) }
+        }
 
         // 初始化
         mDbManager = DBManagerImpl()

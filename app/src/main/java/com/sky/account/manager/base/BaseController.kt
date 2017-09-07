@@ -42,6 +42,10 @@ abstract class BaseController<T> {
         return mPolarBear.getAppController()
     }
 
+    fun getStage() : Stage {
+        return getAppController().stage
+    }
+
     fun setAppStage(title: String, layout: String, width: Double, height: Double) {
         getAppController().setAppStage(title, layout, width, height)
     }
