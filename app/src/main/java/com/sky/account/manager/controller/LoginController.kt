@@ -18,7 +18,7 @@ import java.util.*
 /**
  * Created by sky on 17-8-17.
  */
-class LoginController : BaseController<Any, Any>(), Initializable {
+class LoginController : BaseController<Any>(), Initializable {
 
     @FXML lateinit var jtfName: TextField
     @FXML lateinit var jtfPassword: PasswordField

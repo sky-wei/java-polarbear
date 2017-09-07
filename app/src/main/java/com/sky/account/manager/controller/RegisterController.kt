@@ -19,7 +19,7 @@ import java.util.*
 /**
  * Created by sky on 17-8-17.
  */
-class RegisterController : BaseController<Any, Any>(), Initializable {
+class RegisterController : BaseController<Any>(), Initializable {
 
     @FXML lateinit var jtfName: TextField
     @FXML lateinit var jtfPassword: PasswordField

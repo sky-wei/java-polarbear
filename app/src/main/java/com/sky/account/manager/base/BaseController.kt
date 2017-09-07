@@ -12,7 +12,7 @@ import javafx.stage.Stage
 /**
  * Created by sky on 17-9-4.
  */
-abstract class BaseController<in P, out R> {
+abstract class BaseController<T> {
 
     lateinit var mPolarBear: PolarBear
 
@@ -20,10 +20,10 @@ abstract class BaseController<in P, out R> {
         mPolarBear = bear
     }
 
-    open fun initParam(stage: Stage, param: P) {
+    open fun initParam(stage: Stage, param: T) {
     }
 
-    open fun setResultCallback(callback: Callback<R>) {
+    open fun setResultCallback(callback: (T) -> Unit) {
     }
 
     fun getAccountManager(): AccountManager {
@@ -52,10 +52,5 @@ abstract class BaseController<in P, out R> {
 
     fun setAppScene(title: String, scene: Scene) {
         getAppController().setAppScene(title, scene)
-    }
-
-    interface Callback<in R> {
-
-        fun onResult(result: R)
     }
 }

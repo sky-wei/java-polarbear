@@ -38,7 +38,6 @@ class AppController(private val polarBear: PolarBear) {
     fun setAppStage(title: String, layout: String, width: Double, height: Double) {
 
         stage.close()
-
         initStage(Stage())
 
         setAppScene(title, layout, width, height)
@@ -49,8 +48,10 @@ class AppController(private val polarBear: PolarBear) {
         val loader = ResUtil.getFXMLLoader(layout)
         val scene = Scene(loader.load(), width, height)
 
-        val controller = loader.getController<BaseController<Any, Any>>()
+        val controller = loader.getController<BaseController<Any>>()
         controller.setPolarBear(polarBear)
+        controller.initParam(stage, Any())
+        controller.setResultCallback { /** 什么也不做 */ }
 
         setAppScene(title, scene)
     }
@@ -65,18 +66,15 @@ class AppController(private val polarBear: PolarBear) {
         if (!stage.isShowing) stage.show()
     }
 
-    fun <P, R> showDialog(title: String, layout: String, width: Double, height: Double, param: P, callback: BaseController.Callback<R>) {
-
-        val dialogStage = Stage()
-        dialogStage.initModality(Modality.APPLICATION_MODAL)
-        dialogStage.initOwner(stage)
-        dialogStage.icons.add(Image(ResUtil.getResourceUrl("image/icon.png")))
-        dialogStage.isResizable = false
+    fun <T> showDialog(title: String, layout: String, width: Double, height: Double, param: T, callback: (T) -> Unit) {
 
         val loader = ResUtil.getFXMLLoader(layout)
         val scene = Scene(loader.load(), width, height)
 
-        val controller = loader.getController<BaseController<P, R>>()
+        val dialogStage = newDialogStage()
+
+        loader.setControllerFactory {  }
+        val controller = loader.getController<BaseController<T>>()
         controller.setPolarBear(polarBear)
         controller.initParam(dialogStage, param)
         controller.setResultCallback(callback)
@@ -101,6 +99,18 @@ class AppController(private val polarBear: PolarBear) {
         stage.setOnCloseRequest {
             Platform.exit()
         }
+    }
+
+    private fun newDialogStage(): Stage {
+
+        val dialogStage = Stage()
+
+        dialogStage.initModality(Modality.APPLICATION_MODAL)
+        dialogStage.initOwner(stage)
+        dialogStage.icons.add(Image(ResUtil.getResourceUrl("image/icon.png")))
+        dialogStage.isResizable = false
+
+        return dialogStage
     }
 
     private fun isCreateAdminAccount(): Boolean {

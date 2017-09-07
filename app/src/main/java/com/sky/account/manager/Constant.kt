@@ -9,4 +9,9 @@ object Constant {
 
         val NAME = "polarbear.db"
     }
+
+    object App {
+
+        val VERSION = "Version: 2.0.1"
+    }
 }

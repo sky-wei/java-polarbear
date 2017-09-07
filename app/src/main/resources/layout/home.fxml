@@ -38,8 +38,8 @@
       </MenuBar>
       <HBox alignment="CENTER" prefHeight="70.0" prefWidth="700.0">
          <children>
-            <TextField minWidth="400.0" prefHeight="26.0" onKeyPressed="#onSearchKeyPressedAction" />
-            <Button mnemonicParsing="false" text="search" onAction="#onSearchAction">
+            <TextField fx:id="jtfSearchKey" minWidth="400.0" prefHeight="26.0" onKeyPressed="#onSearchKeyPressedAction" />
+            <Button fx:id="jBtmSearch" mnemonicParsing="false" text="search" onAction="#onSearchAction">
                <HBox.margin>
                   <Insets left="40.0" />
                </HBox.margin>
@@ -67,10 +67,7 @@
       </SplitPane>
       <HBox alignment="CENTER_RIGHT" minHeight="20.0" prefWidth="200.0">
          <children>
-            <Text fx:id="tVersion" text="vresion:2.0">
-               <font>
-                  <Font size="12.0" />
-               </font>
+            <Text fx:id="tVersion">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>

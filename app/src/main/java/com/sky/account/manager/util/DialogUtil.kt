@@ -9,6 +9,8 @@ import javafx.scene.control.ButtonType
 object DialogUtil {
 
     fun showMessage(alertType: Alert.AlertType, msg: String) {
-        Alert(alertType, msg, ButtonType.OK).show()
+        val alert = Alert(alertType, msg, ButtonType.OK)
+        alert.dialogPane.stylesheets.add(ResUtil.getResourceUrl("style/bootstrap2.css"))
+        alert.show()
     }
 }

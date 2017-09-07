@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Text?>
 
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" stylesheets="@../style/bootstrap2.css" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="com.sky.account.manager.controller.NewAccountController">
+          fx:controller="com.sky.account.manager.controller.EditAccountController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="120.0" />
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="281.0" minWidth="10.0" prefWidth="280.0" />
@@ -46,7 +46,7 @@
                 <Insets left="10.0" right="60.0" />
             </GridPane.margin>
         </PasswordField>
-        <Button fx:id="jBtm" mnemonicParsing="false" onAction="#onNewAccountAction" text="new" GridPane.columnSpan="2147483647" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
+        <Button fx:id="jBtmOk" mnemonicParsing="false" onAction="#onNewAccountAction" text="确定" GridPane.columnSpan="2147483647" GridPane.halignment="RIGHT" GridPane.rowIndex="5" GridPane.valignment="CENTER">
             <font>
                 <Font size="14.0" />
             </font>
@@ -62,7 +62,7 @@
             <Insets right="10.0" />
          </GridPane.margin>
       </Text>
-      <TextField fx:id="jtfPassword1" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <TextField fx:id="jtfUrl" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets left="10.0" right="60.0" />
          </GridPane.margin>
@@ -72,7 +72,7 @@
             <Insets right="10.0" />
          </GridPane.margin>
       </Text>
-      <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <TextArea fx:id="jtaDesc" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <GridPane.margin>
             <Insets bottom="8.0" left="10.0" right="60.0" top="8.0" />
          </GridPane.margin>
