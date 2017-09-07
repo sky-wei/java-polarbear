@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="500.0" minWidth="650.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="com.sky.account.manager.controller.HomeController" stylesheets="@../style/home.css">
+      fx:controller="com.sky.account.manager.controller.HomeController" stylesheets="@../style/bootstrap2.css">
    <children>
       <MenuBar >
         <menus>

@@ -8,7 +8,7 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.Button?>
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111"
-          stylesheets="@../style/register.css" fx:controller="com.sky.account.manager.controller.RegisterController">
+          stylesheets="@../style/bootstrap2.css" fx:controller="com.sky.account.manager.controller.RegisterController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="10.0" prefWidth="136.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="271.0" minWidth="10.0" prefWidth="264.0" />

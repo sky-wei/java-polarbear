@@ -7,7 +7,9 @@ import com.sky.account.manager.data.disk.DBManager
 import com.sky.account.manager.data.disk.impl.AccountManagerImpl
 import com.sky.account.manager.data.disk.impl.ConfigurationManagerImpl
 import com.sky.account.manager.data.disk.impl.DBManagerImpl
+import com.sky.account.manager.util.ResUtil
 import javafx.application.Application
+import javafx.scene.text.Font
 import javafx.stage.Stage
 
 /**
@@ -22,6 +24,9 @@ class App : Application(), PolarBear {
 
     override fun init() {
         super.init()
+
+        Font.loadFont(
+                ResUtil.getResourceUrl("font/hwxh.ttf"), 14.0)
 
         // 初始化
         mDbManager = DBManagerImpl()

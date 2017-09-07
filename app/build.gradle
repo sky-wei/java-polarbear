@@ -1,5 +1,11 @@
+apply plugin: 'java'
+apply plugin: 'kotlin'
+
 group 'com.sky.account.manager'
 version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+compileJava.options.encoding = 'UTF-8'
 
 buildscript {
     ext.kotlin_version = '1.1.4-3'
@@ -12,8 +18,6 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
-
-apply plugin: 'kotlin'
 
 repositories {
     maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
@@ -32,4 +36,30 @@ dependencies {
     compile 'com.j256.ormlite:ormlite-core:5.0'
     compile 'com.j256.ormlite:ormlite-jdbc:5.0'
     testCompile 'junit:junit:4.12'
+}
+
+task copyJars(type: Copy) {
+    from configurations.runtime
+    into 'build/libs/lib'
+}
+
+task copyConfigs(type: Copy) {
+    from 'configs/'
+    into 'build/libs/configs'
+}
+
+jar {
+    manifest {
+        attributes(
+                "Manifest-Version": 1.0,
+                "Main-Class": "com.sky.account.manager.App")
+//                "Class-Path": configurations.compile.collect { "lib/${it.name}" }.join(' '))
+    }
+
+    from { configurations.compile.collect {
+        it.isDirectory() ? it : zipTree(it)
+    } }
+    into('assets') {
+        from 'assets'
+    }
 }
