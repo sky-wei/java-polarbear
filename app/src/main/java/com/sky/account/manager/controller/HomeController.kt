@@ -78,7 +78,7 @@ class HomeController : BaseController<Any>(), Initializable {
     override fun initialize(location: URL?, resources: ResourceBundle?) {
 
         // 设置版本号
-        tVersion.text = Constant.App.VERSION
+        tVersion.text = "Version: ${Constant.App.VERSION}"
 
         // 初始化表结构
         name.cellValueFactory = PropertyValueFactory<AccountModel, String>("name")
@@ -127,7 +127,10 @@ class HomeController : BaseController<Any>(), Initializable {
             }
             miAbout -> {
                 // 关于
-                DialogUtil.showMessage(Alert.AlertType.INFORMATION, "功能暂未实现!")
+                getAppController().showDialog(
+                        "PolarBear - 关于", "layout/about.fxml", 400.0, 300.0, Any()) {
+                    /** 什么也不需要操作 */
+                }
             }
         }
     }
@@ -143,7 +146,7 @@ class HomeController : BaseController<Any>(), Initializable {
 
         when(item.text) {
             "打开" -> {
-                // 打开浏览器
+                // 打开浏览器,目前打开浏览器有问题
 //                try {
 //                    Desktop.getDesktop()
 //                            .browse(URI("http://www.baidu.com"))
@@ -201,7 +204,7 @@ class HomeController : BaseController<Any>(), Initializable {
                 && isTabSelected()) {
 
             val menu = ContextMenu(
-                    buildMenuItem("打开"),
+//                    buildMenuItem("打开"),  // 调用浏览器打开有问题
                     buildMenuItem("显示"),
                     buildMenuItem("修改"),
                     buildMenuItem("删除"))
