@@ -18,14 +18,12 @@ package com.sky.account.manager.controller
 
 import com.sky.account.manager.PolarBear
 import com.sky.account.manager.base.BaseController
-import com.sky.account.manager.model.AccountModel
 import com.sky.account.manager.util.ResUtil
 import javafx.application.Platform
 import javafx.scene.Scene
 import javafx.scene.image.Image
 import javafx.stage.Modality
 import javafx.stage.Stage
-import javafx.stage.StageStyle
 
 /**
  * Created by sky on 17-9-5.

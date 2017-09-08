@@ -25,7 +25,7 @@ import org.apache.log4j.PropertyConfigurator
 object Log {
 
     private val TAG = Log::class.java.simpleName
-    private val LOG = Logger.getLogger("PolarBear")
+    private val LOG = Logger.getLogger("polarBear")
 
     init {
         PropertyConfigurator.configure(ResUtil.getResource("log4j.properties"))

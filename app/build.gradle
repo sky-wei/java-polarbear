@@ -4,7 +4,6 @@ apply plugin: 'kotlin'
 group 'com.sky.account.manager'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
 compileJava.options.encoding = 'UTF-8'
 
 buildscript {
@@ -27,7 +26,7 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    compile 'com.jfoenix:jfoenix:1.4.0'
+//    compile 'com.jfoenix:jfoenix:1.4.0'
     compile 'com.google.guava:guava:23.0'
     compile 'io.reactivex.rxjava2:rxjava:2.0.0-DP0-SNAPSHOT'
     compile 'com.google.code.gson:gson:2.8.1'
