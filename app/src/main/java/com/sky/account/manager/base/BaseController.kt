@@ -21,7 +21,6 @@ import com.sky.account.manager.controller.AppController
 import com.sky.account.manager.data.disk.AccountManager
 import com.sky.account.manager.data.disk.ConfigurationManager
 import com.sky.account.manager.data.disk.DBManager
-import com.sky.account.manager.model.AccountModel
 import javafx.scene.Scene
 import javafx.stage.Stage
 

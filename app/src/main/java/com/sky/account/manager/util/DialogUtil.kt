@@ -38,20 +38,20 @@ object DialogUtil {
         alert.show()
     }
 
-    fun showException(thread: Thread, tr: Throwable) {
+    fun showException(title: String, msg: String, thread: Thread, tr: Throwable) {
 
         val alert = Alert(AlertType.ERROR)
         alert.dialogPane.stylesheets.add(ResUtil.getResourceUrl("style/bootstrap2.css"))
 
-        alert.title = "程序异常"
-        alert.headerText = "程序出现异常了,赶紧去上报异常情况!"
+        alert.title = title
+        alert.headerText = msg
 
         val sw = StringWriter()
         val pw = PrintWriter(sw)
         tr.printStackTrace(pw)
         val exceptionText = sw.toString()
 
-        Log.e("Exception", "程序异常了 {$thread}", tr)
+        Log.e("Exception", "$msg {$thread}", tr)
 
         val label = Label("The exception stacktrace was:")
 
@@ -73,5 +73,9 @@ object DialogUtil {
         alert.dialogPane.content = expContent
 
         alert.show()
+    }
+
+    fun showException(thread: Thread, tr: Throwable) {
+        showException("程序异常", "程序出现异常了,赶紧去上报异常情况!", thread, tr)
     }
 }

@@ -23,4 +23,5 @@ import com.sky.account.manager.data.disk.ConfigurationManager
  */
 class ConfigurationManagerImpl : ConfigurationManager {
 
+    /** 暂时还没有 */
 }

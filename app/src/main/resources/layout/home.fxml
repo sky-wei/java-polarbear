@@ -67,7 +67,7 @@
          </VBox.margin>
          <items>
             <TableView fx:id="tvTable" prefHeight="-Infinity" prefWidth="-Infinity"
-                       onMouseClicked="#onTableMouseEvent">
+                       onMouseClicked="#onTableMouseEvent" onKeyReleased="#onTableKeyReleasedEvent">
               <columns>
                 <TableColumn fx:id="name" minWidth="140" text="用户名" />
                 <TableColumn fx:id="password" minWidth="140" text="密码" />

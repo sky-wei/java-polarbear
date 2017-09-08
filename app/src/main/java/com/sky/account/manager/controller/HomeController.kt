@@ -16,9 +16,13 @@
 
 package com.sky.account.manager.controller
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import com.sky.account.manager.Constant
 import com.sky.account.manager.base.BaseController
 import com.sky.account.manager.model.AccountModel
+import com.sky.account.manager.model.AdminModel
 import com.sky.account.manager.util.DialogUtil
 import com.sky.account.manager.util.Log
 import javafx.application.Platform
@@ -33,13 +37,13 @@ import javafx.scene.input.KeyEvent
 import javafx.scene.input.MouseButton
 import javafx.scene.input.MouseEvent
 import javafx.scene.text.Text
+import javafx.stage.FileChooser
 import javafx.stage.Stage
-import java.awt.Desktop
-import java.awt.Toolkit
-import java.net.URI
+import java.io.File
 import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 /**
  * Created by sky on 17-8-17.
@@ -69,7 +73,7 @@ class HomeController : BaseController<Any>(), Initializable {
     @FXML lateinit var desc: TableColumn<AccountModel, String>
     @FXML lateinit var jtaExpand: TextArea
 
-    lateinit var tvTableSelection: TableView.TableViewSelectionModel<AccountModel>
+    private lateinit var tvTableSelection: TableView.TableViewSelectionModel<AccountModel>
 
     companion object {
         val DATA_FORMAT = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -107,15 +111,29 @@ class HomeController : BaseController<Any>(), Initializable {
             }
             mtModifyPassword -> {
                 // 修改密码
-                DialogUtil.showMessage(Alert.AlertType.INFORMATION, "功能暂未实现!")
+                getAppController().showDialog(
+                        "PolarBear - 修改密码",
+                        "layout/edit_admin.fxml", 400.0, 300.0,
+                        getAccountManager().getAdmin()) {
+                    // 执行修改密码操作
+                    changeAdminPassword(it)
+                }
             }
             miImportAccount -> {
                 // 导入账号
-                DialogUtil.showMessage(Alert.AlertType.INFORMATION, "功能暂未实现!")
+                val fileChooser = FileChooser()
+                fileChooser.title = "选择导入的文件"
+                fileChooser.selectedExtensionFilter =
+                        FileChooser.ExtensionFilter("*.txt,*.json", "json", "txt")
+                importAccount(fileChooser.showOpenDialog(getStage()))
             }
             miExportAccount -> {
                 // 导出账号
-                DialogUtil.showMessage(Alert.AlertType.INFORMATION, "功能暂未实现!")
+                val fileChooser = FileChooser()
+                fileChooser.title = "选择导出的目录"
+                fileChooser.selectedExtensionFilter =
+                        FileChooser.ExtensionFilter("*.txt,*.json", "json", "txt")
+                exportAccount(fileChooser.showSaveDialog(getStage()))
             }
             miExit -> {
                 // 退出程序
@@ -196,6 +214,9 @@ class HomeController : BaseController<Any>(), Initializable {
 
         // 设置信息
         tvTable.items = FXCollections.observableArrayList(accountModels)
+
+        // 设置扩展信息
+        setExpandAccountInfo(getTabSelectedIndex())
     }
 
     fun onTableMouseEvent(event: MouseEvent) {
@@ -214,6 +235,15 @@ class HomeController : BaseController<Any>(), Initializable {
         }
 
         setExpandAccountInfo(getTabSelectedIndex())
+    }
+
+    fun onTableKeyReleasedEvent(event: KeyEvent) {
+
+        if (KeyCode.UP == event.code
+                || KeyCode.DOWN == event.code) {
+            // 更新扩展信息
+            setExpandAccountInfo(getTabSelectedIndex())
+        }
     }
 
     private fun buildMenuItem(name: String): MenuItem {
@@ -303,4 +333,117 @@ class HomeController : BaseController<Any>(), Initializable {
     private fun isTabSelected(): Boolean {
         return tvTableSelection.selectedIndex > -1
     }
+
+    private fun changeAdminPassword(newAdmin: AdminModel) {
+
+        val accountManager = getAccountManager()
+
+        // 解密的账号
+        val dAccounts = ArrayList<AccountModel>()
+
+        // 查询所有账号
+        accountManager.search(0, "").forEach {
+            // 解密账号
+            dAccounts.add(accountManager.decryptionAccount(it))
+        }
+
+        // 更新管理员的密码
+        accountManager.updateAdmin(newAdmin)
+
+        dAccounts.forEach {
+            // 更新账号
+            accountManager.updateAccount(it)
+        }
+
+        Platform.runLater { onSearchAction() }
+    }
+
+    private fun importAccount(file: File?) {
+
+        if (file == null) return
+
+        if (file.length() > 1024 * 2014) {
+            // 文件过大
+            DialogUtil.showMessage(Alert.AlertType.ERROR, "文件过大,无法导入!")
+            return
+        }
+
+        try {
+            // 获取账号信息
+            val accounts = Gson()
+                    .fromJson<List<AccountModel>>(file.readText())
+
+            if (accounts == null || accounts.isEmpty()) {
+                // 没有账号
+                DialogUtil.showMessage(
+                        Alert.AlertType.INFORMATION, "文件中没有有效的账号!")
+                return
+            }
+
+            val accountManager = getAccountManager()
+            val admin = accountManager.getAdmin()
+
+            accounts.forEach {
+                // 创建账号
+                accountManager.createAccount(
+                        it.copy(id = 0, adminId = admin.id,
+                                createTime = System.currentTimeMillis()))
+            }
+
+            // 成功了
+            DialogUtil.showMessage(
+                    Alert.AlertType.INFORMATION, "导入账号成功了!")
+
+            // 刷新列表
+            Platform.runLater { onSearchAction() }
+        } catch (tr: Throwable) {
+            // 异常了
+            Log.e("导入账号异常", tr)
+            DialogUtil.showException(
+                    "导入失败", "导入账号异常!", Thread.currentThread(), tr)
+        }
+    }
+
+    private fun exportAccount(file: File?) {
+
+        if (file == null) return
+
+        val accountManager = getAccountManager()
+
+        // 解密的账号
+        val dAccounts = ArrayList<AccountModel>()
+
+        // 查询所有账号
+        accountManager.search(0, "").forEach {
+            // 解密账号
+            dAccounts.add(accountManager.decryptionAccount(it))
+        }
+
+        if (dAccounts.isEmpty()) {
+            // 没有账号
+            DialogUtil.showMessage(
+                    Alert.AlertType.INFORMATION, "没有可以导出的账号!")
+            return
+        }
+
+        try {
+            val gson = GsonBuilder()
+                    .setPrettyPrinting()
+                    .create()
+
+            // 保存到文件
+            file.writeText(gson.toJson(dAccounts))
+
+            // 成功了
+            DialogUtil.showMessage(
+                    Alert.AlertType.INFORMATION, "导出账号成功了!")
+        } catch (tr: Throwable) {
+            // 异常了
+            Log.e("导出账号异常", tr)
+            DialogUtil.showException(
+                    "导出失败", "导出账号异常!", Thread.currentThread(), tr)
+        }
+    }
+
+    inline fun <reified T> Gson.fromJson(json: String) = this.fromJson<T>(json, object: TypeToken<T>() {}.type)
 }
