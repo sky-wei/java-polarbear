@@ -33,6 +33,7 @@ import javafx.stage.StageStyle
 class AppController(private val polarBear: PolarBear) {
 
     lateinit var stage: Stage
+    private var mLoading: Stage? = null
 
     fun start(primaryStage: Stage) {
 
@@ -80,7 +81,15 @@ class AppController(private val polarBear: PolarBear) {
         if (!stage.isShowing) stage.show()
     }
 
-    fun <T> showDialog(title: String, layout: String, width: Double, height: Double, param: T, callback: (T) -> Unit) {
+    fun showDialog(title: String, layout: String, width: Double, height: Double): Stage {
+        return showDialog(title, layout, width, height, Any())
+    }
+
+    fun <T> showDialog(title: String, layout: String, width: Double, height: Double, param: T): Stage {
+        return showDialog(title, layout, width, height, param, {})
+    }
+
+    fun <T> showDialog(title: String, layout: String, width: Double, height: Double, param: T, callback: (T) -> Unit): Stage {
 
         val loader = ResUtil.getFXMLLoader(layout)
         val scene = Scene(loader.load(), width, height)
@@ -89,18 +98,47 @@ class AppController(private val polarBear: PolarBear) {
 
         loader.setControllerFactory {  }
         val controller = loader.getController<BaseController<T>>()
-        controller.setPolarBear(polarBear)
-        controller.initParam(dialogStage, param)
-        controller.setResultCallback(callback)
+
+        if (controller != null) {
+            // 设置参数
+            controller.setPolarBear(polarBear)
+            controller.initParam(dialogStage, param)
+            controller.setResultCallback(callback)
+        }
 
         dialogStage.title = title
         dialogStage.scene = scene
 
-        if (!dialogStage.isShowing) dialogStage.show()
+        if (!dialogStage.isShowing) {
+            // 显示
+            dialogStage.show()
+        }
+        return dialogStage
     }
 
     fun exitApp() {
         Platform.exit()
+    }
+
+    fun showLoading() {
+
+        if (mLoading != null) return
+
+        // 显示提示框
+        mLoading = showDialog(
+                "提示", "layout/loading.fxml", 240.0, 100.0)
+
+        // 取消窗口关闭按钮
+        mLoading!!.setOnCloseRequest { it.consume() }
+    }
+
+    fun cancelLoading() {
+
+        if (mLoading == null) return
+
+        // 关闭提示框
+        mLoading!!.close()
+        mLoading = null
     }
 
     private fun initStage(primaryStage: Stage) {

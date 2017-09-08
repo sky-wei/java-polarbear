@@ -3,13 +3,16 @@
 	-fx-outer-border : #cecece;
 	-fx-font-family: "STXihei";
 }
-
+#loading-text {
+	-fx-font-size: 14px;
+	-fx-fill: #818181;
+	-fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
+}
 #welcome-text {
 	-fx-font-size: 40px;
 	-fx-fill: #818181;
 	-fx-effect: innershadow( three-pass-box , rgba(0,0,0,0.7) , 6, 0.0 , 0 , 2 );
 }
-
 .button:focused, .toggle-button:focused,
 .split-menu-button:focused, .menu-button:focused,
 .number-button:focused,

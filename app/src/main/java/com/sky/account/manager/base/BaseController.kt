@@ -72,4 +72,16 @@ abstract class BaseController<T> {
     fun setAppScene(title: String, scene: Scene) {
         getAppController().setAppScene(title, scene)
     }
+
+    fun showDialog(title: String, layout: String, width: Double, height: Double): Stage {
+        return getAppController().showDialog(title, layout, width, height)
+    }
+
+    fun showLoading() {
+        getAppController().showLoading()
+    }
+
+    fun cancelLoading() {
+        getAppController().cancelLoading()
+    }
 }

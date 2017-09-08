@@ -145,10 +145,8 @@ class HomeController : BaseController<Any>(), Initializable {
             }
             miAbout -> {
                 // 关于
-                getAppController().showDialog(
-                        "PolarBear - 关于", "layout/about.fxml", 400.0, 300.0, Any()) {
-                    /** 什么也不需要操作 */
-                }
+                showDialog(
+                        "PolarBear - 关于", "layout/about.fxml", 400.0, 300.0)
             }
         }
     }
@@ -177,9 +175,7 @@ class HomeController : BaseController<Any>(), Initializable {
                 getAppController().showDialog(
                         "PolarBear - 账号详情", "layout/details.fxml",
                         400.0, 260.0,
-                        accountManager.decryptionAccount(selectedItem)) {
-                    /** 什么也不用做 */
-                }
+                        accountManager.decryptionAccount(selectedItem))
             }
             "修改" -> {
                 // 编辑账号
