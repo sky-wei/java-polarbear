@@ -3,9 +3,9 @@
 本程序使用的是 __Kotlin__ 语言编写基于 __JavaFX__ 来实现的。
 
 ### 截图
-![](screenshot/screenshot1.jpg)
-![](screenshot/screenshot2.jpg)
-![](screenshot/screenshot3.jpg)
+![](screenshot/screenshot1.png)
+![](screenshot/screenshot2.png)
+![](screenshot/screenshot3.png)
 
 ## License
 
