@@ -19,6 +19,7 @@ package com.sky.account.manager.data.disk
 import com.sky.account.manager.data.DataException
 import com.sky.account.manager.model.AccountModel
 import com.sky.account.manager.model.AdminModel
+import io.reactivex.Observable
 import java.io.File
 
 /**
@@ -32,9 +33,9 @@ interface AccountManager {
 
     fun loginAdmin(model: AdminModel): Boolean
 
-    fun getAdmin(): AdminModel
+    fun changeAdminPassword(model: AdminModel): Observable<Boolean>
 
-    fun updateAdmin(model: AdminModel): Boolean
+    fun getAdmin(): AdminModel
 
     fun search(type: Int, key: String): List<AccountModel>
 
@@ -50,7 +51,7 @@ interface AccountManager {
     @Throws(DataException::class)
     fun decryptionAccount(model: AccountModel): AccountModel
 
-    fun importAccount(models: List<AccountModel>): Boolean
+    fun importAccount(file: File): Observable<Boolean>
 
-    fun exportAccount(models: List<AccountModel>, path: File): Boolean
+    fun exportAccount(file: File): Observable<Boolean>
 }

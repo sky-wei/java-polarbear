@@ -16,7 +16,11 @@
 
 package com.sky.account.manager.data.disk.impl
 
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.reflect.TypeToken
 import com.j256.ormlite.dao.Dao
+import com.sky.account.manager.data.DataException
 import com.sky.account.manager.data.disk.AccountManager
 import com.sky.account.manager.data.disk.DBManager
 import com.sky.account.manager.data.disk.converter.AccountConverter
@@ -25,9 +29,15 @@ import com.sky.account.manager.data.disk.entity.AccountEntity
 import com.sky.account.manager.data.disk.entity.AdminEntity
 import com.sky.account.manager.model.AccountModel
 import com.sky.account.manager.model.AdminModel
+import com.sky.account.manager.util.DialogUtil
+import com.sky.account.manager.util.Log
 import com.sky.account.manager.util.MD5Util
 import com.sky.account.manager.util.SecretUtil
+import io.reactivex.Observable
+import javafx.application.Platform
+import javafx.scene.control.Alert
 import java.io.File
+import java.util.*
 
 /**
  * Created by sky on 17-9-4.
@@ -89,7 +99,37 @@ class AccountManagerImpl(dbManager: DBManager) : AccountManager {
         return mAdmin
     }
 
-    override fun updateAdmin(model: AdminModel): Boolean {
+    override fun changeAdminPassword(model: AdminModel): Observable<Boolean> {
+
+        return Observable.create {
+
+            try {
+                // 解密的账号
+                val dAccounts = ArrayList<AccountModel>()
+
+                // 查询所有账号
+                search(0, "").forEach {
+                    // 解密账号
+                    dAccounts.add(decryptionAccount(it))
+                }
+
+                // 更新管理员的密码
+                updateAdmin(model)
+
+                dAccounts.forEach {
+                    // 更新账号
+                    updateAccount(it)
+                }
+
+                it.onNext(true)
+                it.onComplete()
+            } catch (tr: Throwable) {
+                it.onError(DataException("修改管理员密码异常!", tr))
+            }
+        }
+    }
+
+    private fun updateAdmin(model: AdminModel): Boolean {
 
         val tempModel = model.copy()
         tempModel.password = MD5Util.md5sum(model.password)
@@ -151,11 +191,58 @@ class AccountManagerImpl(dbManager: DBManager) : AccountManager {
         return decrypt
     }
 
-    override fun importAccount(models: List<AccountModel>): Boolean {
-        return false
+    override fun importAccount(file: File): Observable<Boolean> {
+
+        return Observable.create {
+
+            try {
+                // 获取账号信息
+                val accounts = Gson()
+                        .fromJson<List<AccountModel>>(file.readText())
+
+                accounts.forEach {
+                    // 创建账号
+                    createAccount(
+                            it.copy(id = 0, adminId = mAdmin.id,
+                                    createTime = System.currentTimeMillis()))
+                }
+
+                it.onNext(true)
+                it.onComplete()
+            } catch (tr: Throwable) {
+                it.onError(DataException("导入账号异常", tr))
+            }
+        }
     }
 
-    override fun exportAccount(models: List<AccountModel>, path: File): Boolean {
-        return false
+    override fun exportAccount(file: File): Observable<Boolean> {
+
+        return Observable.create {
+
+            try {
+                // 解密的账号
+                val dAccounts = ArrayList<AccountModel>()
+
+                // 查询所有账号
+                search(0, "").forEach {
+                    // 解密账号
+                    dAccounts.add(decryptionAccount(it))
+                }
+
+                val gson = GsonBuilder()
+                        .setPrettyPrinting()
+                        .create()
+
+                // 保存到文件
+                file.writeText(gson.toJson(dAccounts))
+
+                it.onNext(true)
+                it.onComplete()
+            } catch (tr: Throwable) {
+                it.onError(DataException("导出账号异常", tr))
+            }
+        }
     }
+
+    inline fun <reified T> Gson.fromJson(json: String) = this.fromJson<T>(json, object: TypeToken<T>() {}.type)
 }

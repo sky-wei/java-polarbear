@@ -19,6 +19,13 @@ package com.sky.account.manager.data
 /**
  * Created by sky on 17-9-3.
  */
-class DataException : Exception() {
+class DataException : Exception {
 
+    constructor(): super()
+
+    constructor(msg: String): super(msg)
+
+    constructor(tr: Throwable): super(tr)
+
+    constructor(msg: String, tr: Throwable): super(msg, tr)
 }

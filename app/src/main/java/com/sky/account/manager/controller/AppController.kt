@@ -125,9 +125,6 @@ class AppController(private val polarBear: PolarBear) {
         // 显示提示框
         mLoading = showDialog(
                 "提示", "layout/loading.fxml", 240.0, 100.0)
-
-        // 取消窗口关闭按钮
-        mLoading!!.setOnCloseRequest { it.consume() }
     }
 
     fun cancelLoading() {

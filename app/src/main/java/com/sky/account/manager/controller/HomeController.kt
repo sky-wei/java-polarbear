@@ -25,6 +25,7 @@ import com.sky.account.manager.model.AccountModel
 import com.sky.account.manager.model.AdminModel
 import com.sky.account.manager.util.DialogUtil
 import com.sky.account.manager.util.Log
+import io.reactivex.schedulers.Schedulers
 import javafx.application.Platform
 import javafx.collections.FXCollections
 import javafx.event.ActionEvent
@@ -334,24 +335,25 @@ class HomeController : BaseController<Any>(), Initializable {
 
         val accountManager = getAccountManager()
 
-        // 解密的账号
-        val dAccounts = ArrayList<AccountModel>()
+        showLoading()
 
-        // 查询所有账号
-        accountManager.search(0, "").forEach {
-            // 解密账号
-            dAccounts.add(accountManager.decryptionAccount(it))
-        }
-
-        // 更新管理员的密码
-        accountManager.updateAdmin(newAdmin)
-
-        dAccounts.forEach {
-            // 更新账号
-            accountManager.updateAccount(it)
-        }
-
-        Platform.runLater { onSearchAction() }
+        accountManager
+                .changeAdminPassword(newAdmin)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.from { Platform.runLater { it.run() } })
+                .subscribe(
+                        {
+                            cancelLoading()
+                            // 成功了
+                            onSearchAction()
+                        },
+                        {
+                            cancelLoading()
+                            // 出错了
+                            DialogUtil.showException(
+                                    "修改密码异常", "修改密码异常!", Thread.currentThread(), it)
+                        }
+                )
     }
 
     private fun importAccount(file: File?) {
@@ -364,40 +366,31 @@ class HomeController : BaseController<Any>(), Initializable {
             return
         }
 
-        try {
-            // 获取账号信息
-            val accounts = Gson()
-                    .fromJson<List<AccountModel>>(file.readText())
+        val accountManager = getAccountManager()
 
-            if (accounts == null || accounts.isEmpty()) {
-                // 没有账号
-                DialogUtil.showMessage(
-                        Alert.AlertType.INFORMATION, "文件中没有有效的账号!")
-                return
-            }
+        showLoading()
 
-            val accountManager = getAccountManager()
-            val admin = accountManager.getAdmin()
+        accountManager
+                .importAccount(file)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.from { Platform.runLater { it.run() } })
+                .subscribe(
+                        {
+                            cancelLoading()
+                            // 成功了
+                            onSearchAction()
 
-            accounts.forEach {
-                // 创建账号
-                accountManager.createAccount(
-                        it.copy(id = 0, adminId = admin.id,
-                                createTime = System.currentTimeMillis()))
-            }
-
-            // 成功了
-            DialogUtil.showMessage(
-                    Alert.AlertType.INFORMATION, "导入账号成功了!")
-
-            // 刷新列表
-            Platform.runLater { onSearchAction() }
-        } catch (tr: Throwable) {
-            // 异常了
-            Log.e("导入账号异常", tr)
-            DialogUtil.showException(
-                    "导入失败", "导入账号异常!", Thread.currentThread(), tr)
-        }
+                            // 成功了
+                            DialogUtil.showMessage(
+                                    Alert.AlertType.INFORMATION, "导入账号成功了!")
+                        },
+                        {
+                            cancelLoading()
+                            // 出错了
+                            DialogUtil.showException(
+                                    "导入失败", "导入账号异常!", Thread.currentThread(), it)
+                        }
+                )
     }
 
     private fun exportAccount(file: File?) {
@@ -406,40 +399,25 @@ class HomeController : BaseController<Any>(), Initializable {
 
         val accountManager = getAccountManager()
 
-        // 解密的账号
-        val dAccounts = ArrayList<AccountModel>()
+        showLoading()
 
-        // 查询所有账号
-        accountManager.search(0, "").forEach {
-            // 解密账号
-            dAccounts.add(accountManager.decryptionAccount(it))
-        }
-
-        if (dAccounts.isEmpty()) {
-            // 没有账号
-            DialogUtil.showMessage(
-                    Alert.AlertType.INFORMATION, "没有可以导出的账号!")
-            return
-        }
-
-        try {
-            val gson = GsonBuilder()
-                    .setPrettyPrinting()
-                    .create()
-
-            // 保存到文件
-            file.writeText(gson.toJson(dAccounts))
-
-            // 成功了
-            DialogUtil.showMessage(
-                    Alert.AlertType.INFORMATION, "导出账号成功了!")
-        } catch (tr: Throwable) {
-            // 异常了
-            Log.e("导出账号异常", tr)
-            DialogUtil.showException(
-                    "导出失败", "导出账号异常!", Thread.currentThread(), tr)
-        }
+        accountManager
+                .exportAccount(file)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.from { Platform.runLater { it.run() } })
+                .subscribe(
+                        {
+                            cancelLoading()
+                            // 成功了
+                            DialogUtil.showMessage(
+                                    Alert.AlertType.INFORMATION, "导出账号成功了!")
+                        },
+                        {
+                            cancelLoading()
+                            // 出错了
+                            DialogUtil.showException(
+                                    "导出失败", "导出账号异常!", Thread.currentThread(), it)
+                        }
+                )
     }
-
-    inline fun <reified T> Gson.fromJson(json: String) = this.fromJson<T>(json, object: TypeToken<T>() {}.type)
 }
