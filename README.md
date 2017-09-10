@@ -1,6 +1,11 @@
-### PolarBear
+## 本地账号管理程序
 
-PC端的账号管理项目
+本程序使用的是 __Kotlin__ 语言编写基于 __JavaFX__ 来实现的。
+
+### 截图
+![](screenshot/screenshot1.jpg)
+![](screenshot/screenshot2.jpg)
+![](screenshot/screenshot3.jpg)
 
 ## License
 
