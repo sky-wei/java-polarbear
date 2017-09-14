@@ -21,6 +21,7 @@ import com.sky.account.manager.base.BaseController
 import javafx.fxml.FXML
 import javafx.fxml.Initializable
 import javafx.scene.control.Hyperlink
+import javafx.scene.control.Label
 import javafx.scene.control.TextArea
 import javafx.scene.text.Text
 import java.net.URL
@@ -31,8 +32,8 @@ import java.util.*
  */
 class AboutController : BaseController<Any>(), Initializable {
 
-    @FXML lateinit var jtVersion: Text
-    @FXML lateinit var jtMail: Text
+    @FXML lateinit var jtVersion: Label
+    @FXML lateinit var jtMail: Label
     @FXML lateinit var jhlSource: Hyperlink
     @FXML lateinit var jtaLicense: TextArea
 

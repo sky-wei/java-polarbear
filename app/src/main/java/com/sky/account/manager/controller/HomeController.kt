@@ -65,7 +65,7 @@ class HomeController : BaseController<Any>(), Initializable {
 
     @FXML lateinit var jtfSearchKey: TextField
     @FXML lateinit var jBtmSearch: Button
-    @FXML lateinit var tVersion: Text
+    @FXML lateinit var tVersion: Label
 
     @FXML lateinit var tvTable: TableView<AccountModel>
     @FXML lateinit var name: TableColumn<AccountModel, String>

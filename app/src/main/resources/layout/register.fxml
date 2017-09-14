@@ -1,12 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.Button?>
 <!--
   ~ Copyright (c) 2017 The sky Authors.
   ~
@@ -23,6 +16,10 @@
   ~ limitations under the License.
   -->
 
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Font?>
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111"
           stylesheets="@../style/bootstrap2.css" fx:controller="com.sky.account.manager.controller.RegisterController">
   <columnConstraints>
@@ -37,21 +34,21 @@
     <RowConstraints maxHeight="189.0" minHeight="10.0" prefHeight="95.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Text id="common-text" text="用户名:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+      <Label id="common-text" text="用户名:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin>
-      </Text>
-      <Text id="common-text" text="密码:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+      </Label>
+      <Label id="common-text" text="密码:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin>
-      </Text>
-      <Text id="common-text" text="确认密码:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+      </Label>
+      <Label id="common-text" text="确认密码:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin>
-      </Text>
+      </Label>
       <TextField fx:id="jtfName" GridPane.columnIndex="1" GridPane.rowIndex="1" >
          <GridPane.margin>
             <Insets left="10.0" right="60.0" />

@@ -26,6 +26,7 @@
   ~ limitations under the License.
   -->
 
+<?import javafx.scene.control.Label?>
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="400.0" stylesheets="@../style/bootstrap2.css" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sky.account.manager.controller.LoginController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.0" minWidth="10.0" prefWidth="120.0" />
@@ -38,24 +39,21 @@
     <RowConstraints maxHeight="165.0" minHeight="10.0" prefHeight="83.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <Text id="welcome-text" text="Welcome" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-         <font>
-            <Font size="30.0" />
-         </font>
+      <Label id="welcome-text" text="Welcome" GridPane.columnSpan="2147483647" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
          <GridPane.margin>
             <Insets top="20.0" />
          </GridPane.margin>
-      </Text>
-      <Text text="用户名:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+      </Label>
+      <Label text="用户名:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin>
-      </Text>
-      <Text text="密码:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+      </Label>
+      <Label text="密码:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
          <GridPane.margin>
             <Insets right="10.0" />
          </GridPane.margin>
-      </Text>
+      </Label>
       <TextField fx:id="jtfName" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets left="10.0" right="60.0" />

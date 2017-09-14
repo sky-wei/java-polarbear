@@ -80,11 +80,11 @@
       </SplitPane>
       <HBox alignment="CENTER_RIGHT" minHeight="20.0" prefWidth="200.0">
          <children>
-            <Text fx:id="tVersion">
+            <Label fx:id="tVersion">
                <HBox.margin>
                   <Insets right="20.0" />
                </HBox.margin>
-            </Text>
+            </Label>
          </children></HBox>
    </children>
 </VBox>
