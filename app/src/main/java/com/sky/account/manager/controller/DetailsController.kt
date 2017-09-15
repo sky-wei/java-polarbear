@@ -47,11 +47,11 @@ class DetailsController : BaseController<AccountModel>(), Initializable {
         val info = StringBuilder().apply {
             append("ID : ${param.id}\n")
             append("AdminID : ${param.adminId}\n")
-            append("用户名 : ${param.name}\n")
-            append("密码 :  ${param.password}\n")
-            append("网站地址 : ${param.url}\n")
-            append("描述内容 : ${param.desc}\n")
-            append("创建时间 : ${HomeController.DATA_FORMAT.format(param.createTime)}")
+            append("${getString("label.userName")} ${param.name}\n")
+            append("${getString("label.password")} ${param.password}\n")
+            append("${getString("label.url")} ${param.url}\n")
+            append("${getString("label.desc")} ${param.desc}\n")
+            append("${getString("label.createTime")} ${HomeController.DATA_FORMAT.format(param.createTime)}")
         }
 
         // 设置详细信息

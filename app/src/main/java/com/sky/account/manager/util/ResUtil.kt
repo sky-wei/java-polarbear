@@ -19,6 +19,7 @@ package com.sky.account.manager.util
 import javafx.fxml.FXMLLoader
 import javafx.scene.image.Image
 import java.net.URL
+import java.util.*
 
 /**
  * Created by sky on 17-9-1.
@@ -41,7 +42,15 @@ object ResUtil {
         return FXMLLoader.load(getResource(name))
     }
 
+    fun <T> getLayout(name: String, resourceBundle: ResourceBundle): T {
+        return FXMLLoader.load(getResource(name), resourceBundle)
+    }
+
     fun getFXMLLoader(name: String): FXMLLoader {
         return FXMLLoader(getResource(name))
+    }
+
+    fun getFXMLLoader(name: String, resourceBundle: ResourceBundle): FXMLLoader {
+        return FXMLLoader(getResource(name), resourceBundle)
     }
 }

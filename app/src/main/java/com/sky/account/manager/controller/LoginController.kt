@@ -64,7 +64,7 @@ class LoginController : BaseController<Any>(), Initializable {
 
         if (accountManager.loginAdmin(model)) {
             // 登录成功了
-            setAppStage("PolarBear - sky", "layout/home.fxml", 650.0, 500.0)
+            setAppStage("${getString("app.name")} - sky", "layout/home.fxml", 650.0, 500.0)
             return
         }
 

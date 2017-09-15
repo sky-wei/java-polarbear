@@ -72,7 +72,7 @@ class RegisterController : BaseController<Any>(), Initializable {
 
         if (accountManager.createAdmin(model)) {
             // 显示登录界面
-            setAppStage("PolarBear - sky", "layout/home.fxml", 650.0, 500.0)
+            setAppStage("${getString("app.name")} - sky", "layout/home.fxml", 650.0, 500.0)
             return
         }
 

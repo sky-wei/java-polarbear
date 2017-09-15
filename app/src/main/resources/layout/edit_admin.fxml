@@ -38,17 +38,17 @@
         <RowConstraints maxHeight="189.0" minHeight="10.0" prefHeight="95.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <Label id="common-text" text="用户名:" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+        <Label id="common-text" text="%label.userName" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
             <GridPane.margin>
                 <Insets right="10.0" />
             </GridPane.margin>
         </Label>
-        <Label id="common-text" text="旧密码:" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+        <Label id="common-text" text="%label.curPassword" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
             <GridPane.margin>
                 <Insets right="10.0" />
             </GridPane.margin>
         </Label>
-        <Label id="common-text" text="新密码:" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+        <Label id="common-text" text="%label.newPassword" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
             <GridPane.margin>
                 <Insets right="10.0" />
             </GridPane.margin>
@@ -68,7 +68,7 @@
                 <Insets left="10.0" right="60.0" />
             </GridPane.margin>
         </PasswordField>
-        <Button fx:id="jBtmOk" mnemonicParsing="false" text="确定" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" onAction="#onChangeAdminAction">
+        <Button fx:id="jBtmOk" mnemonicParsing="false" text="%app.confirm" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" onAction="#onChangeAdminAction">
             <font>
                 <Font size="14.0" />
             </font>

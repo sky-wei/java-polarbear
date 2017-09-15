@@ -39,8 +39,8 @@ class AboutController : BaseController<Any>(), Initializable {
 
     override fun initialize(location: URL?, resources: ResourceBundle?) {
 
-        jtVersion.text = "版本：${Constant.App.VERSION}"
-        jtMail.text = "邮箱：${Constant.App.MAIL}"
+        jtVersion.text = "${getString("label.version")} ${Constant.App.VERSION}"
+        jtMail.text = "${getString("label.mail")} ${Constant.App.MAIL}"
         jhlSource.text = Constant.App.GIT_HUB
 
         jtaLicense.text = "License\n" +

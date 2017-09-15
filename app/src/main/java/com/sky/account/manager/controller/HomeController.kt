@@ -16,9 +16,6 @@
 
 package com.sky.account.manager.controller
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
-import com.google.gson.reflect.TypeToken
 import com.sky.account.manager.Constant
 import com.sky.account.manager.base.BaseController
 import com.sky.account.manager.model.AccountModel
@@ -37,10 +34,11 @@ import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
 import javafx.scene.input.MouseButton
 import javafx.scene.input.MouseEvent
-import javafx.scene.text.Text
 import javafx.stage.FileChooser
 import javafx.stage.Stage
+import java.awt.Desktop
 import java.io.File
+import java.net.URI
 import java.net.URL
 import java.text.SimpleDateFormat
 import java.util.*
@@ -106,14 +104,14 @@ class HomeController : BaseController<Any>(), Initializable {
         when(event.source) {
             miNewAccount -> {
                 // 创建账号
-                showEditAccountDialog("PolarBear - 新建账号", AccountModel()) {
+                showEditAccountDialog(getTitle("menu.newAccount"), AccountModel()) {
                     Platform.runLater { createAccount(it) }
                 }
             }
             mtModifyPassword -> {
                 // 修改密码
                 getAppController().showDialog(
-                        "PolarBear - 修改密码",
+                        getTitle("menu.modifyPassword"),
                         "layout/edit_admin.fxml", 400.0, 300.0,
                         getAccountManager().getAdmin()) {
                     // 执行修改密码操作
@@ -147,7 +145,7 @@ class HomeController : BaseController<Any>(), Initializable {
             miAbout -> {
                 // 关于
                 showDialog(
-                        "PolarBear - 关于", "layout/about.fxml", 400.0, 300.0)
+                        getTitle("app.about"), "layout/about.fxml", 400.0, 300.0)
             }
         }
     }
@@ -162,31 +160,31 @@ class HomeController : BaseController<Any>(), Initializable {
         val selectedItem = getTabSelectedItem()
 
         when(item.text) {
-            "打开" -> {
+            getString("menu.open") -> {
                 // 打开浏览器,目前打开浏览器有问题
-//                try {
-//                    Desktop.getDesktop()
-//                            .browse(URI("http://www.baidu.com"))
-//                } catch (tr: Throwable) {
-//                    Log.e("打开页面异常", tr)
-//                }
+                try {
+                    Desktop.getDesktop()
+                            .browse(URI(selectedItem.url))
+                } catch (tr: Throwable) {
+                    Log.e("打开页面异常", tr)
+                }
             }
-            "显示" -> {
+            getString("menu.display") -> {
                 // 显示账号详情
                 getAppController().showDialog(
-                        "PolarBear - 账号详情", "layout/details.fxml",
+                        getTitle("app.details"), "layout/details.fxml",
                         400.0, 260.0,
                         accountManager.decryptionAccount(selectedItem))
             }
-            "修改" -> {
+            getString("menu.modify") -> {
                 // 编辑账号
                 showEditAccountDialog(
-                        "PolarBear - 修改账号",
+                        getTitle("app.modify"),
                         accountManager.decryptionAccount(selectedItem)) {
                     Platform.runLater { editAccount(it) }
                 }
             }
-            "删除" -> {
+            getString("menu.delete") -> {
                 // 删除账号
                 accountManager.deleteAccount(selectedItem)
                 Platform.runLater { onSearchAction() }
@@ -222,10 +220,10 @@ class HomeController : BaseController<Any>(), Initializable {
                 && isTabSelected()) {
 
             val menu = ContextMenu(
-//                    buildMenuItem("打开"),  // 调用浏览器打开有问题
-                    buildMenuItem("显示"),
-                    buildMenuItem("修改"),
-                    buildMenuItem("删除"))
+                    buildMenuItem(getString("menu.open")),  // 调用浏览器打开有问题
+                    buildMenuItem(getString("menu.display")),
+                    buildMenuItem(getString("menu.modify")),
+                    buildMenuItem(getString("menu.delete")))
 
             // 显示菜单
             menu.show(getStage(), event.screenX, event.screenY)
@@ -308,11 +306,11 @@ class HomeController : BaseController<Any>(), Initializable {
         val account = getTabSelectedItem()
 
         val info = StringBuilder().apply {
-            append("用户名 : ${account.name}\n")
-            append("密码 :  ${account.password}\n")
-            append("网站地址 : ${account.url}\n")
-            append("描述内容 : ${account.desc}\n")
-            append("创建时间 : ${DATA_FORMAT.format(account.createTime)}")
+            append("${getString("label.userName")} ${account.name}\n")
+            append("${getString("label.password")} ${account.password}\n")
+            append("${getString("label.url")} ${account.url}\n")
+            append("${getString("label.desc")} ${account.desc}\n")
+            append("${getString("label.createTime")} ${DATA_FORMAT.format(account.createTime)}")
         }
 
         // 设置扩展内容

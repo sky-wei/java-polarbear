@@ -33,7 +33,7 @@
   </rowConstraints>
    <children>
       <ProgressIndicator GridPane.rowIndex="1" />
-      <Label id="loading-text" text="Loading..." GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <Label id="loading-text" text="%label.loading" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <GridPane.margin>
             <Insets />
          </GridPane.margin>

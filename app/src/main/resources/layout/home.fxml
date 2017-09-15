@@ -25,25 +25,25 @@
    <children>
       <MenuBar >
         <menus>
-          <Menu fx:id="menu" mnemonicParsing="false" text="菜单(_M)">
+          <Menu fx:id="menu" mnemonicParsing="false" text="%menu.menu">
             <items>
-                <MenuItem fx:id="miNewAccount" mnemonicParsing="false" text="新建账号" accelerator="Ctrl+N" onAction="#onMenuAction"/>
-                <MenuItem fx:id="mtModifyPassword" mnemonicParsing="false" text="修改密码" onAction="#onMenuAction" />
+                <MenuItem fx:id="miNewAccount" mnemonicParsing="false" text="%menu.newAccount" accelerator="Ctrl+N" onAction="#onMenuAction"/>
+                <MenuItem fx:id="mtModifyPassword" mnemonicParsing="false" text="%menu.modifyPassword" onAction="#onMenuAction" />
                 <SeparatorMenuItem />
-                <MenuItem fx:id="miImportAccount" mnemonicParsing="false" text="导入账号" onAction="#onMenuAction" />
-                <MenuItem fx:id="miExportAccount" mnemonicParsing="false" text="导出账号" onAction="#onMenuAction" />
+                <MenuItem fx:id="miImportAccount" mnemonicParsing="false" text="%menu.importAccount" onAction="#onMenuAction" />
+                <MenuItem fx:id="miExportAccount" mnemonicParsing="false" text="%menu.exportAccount" onAction="#onMenuAction" />
                 <SeparatorMenuItem />
-                <MenuItem fx:id="miExit" mnemonicParsing="false" text="退出" accelerator="Ctrl+Q" onAction="#onMenuAction" />
+                <MenuItem fx:id="miExit" mnemonicParsing="false" text="%menu.exit" accelerator="Ctrl+Q" onAction="#onMenuAction" />
             </items>
           </Menu>
-          <Menu fx:id="settings" mnemonicParsing="false" text="设置(_S)">
+          <Menu fx:id="settings" mnemonicParsing="false" text="%menu.settings">
             <items>
-              <MenuItem fx:id="miSettings" mnemonicParsing="false" text="程序设置" onAction="#onMenuAction" />
+              <MenuItem fx:id="miSettings" mnemonicParsing="false" text="%menu.appSettings" onAction="#onMenuAction" />
             </items>
           </Menu>
-          <Menu fx:id="help" mnemonicParsing="false" text="帮助(_H)">
+          <Menu fx:id="help" mnemonicParsing="false" text="%menu.help">
             <items>
-              <MenuItem fx:id="miAbout" mnemonicParsing="false" text="关于程序" onAction="#onMenuAction" />
+              <MenuItem fx:id="miAbout" mnemonicParsing="false" text="%menu.about" onAction="#onMenuAction" />
             </items>
           </Menu>
         </menus>
@@ -51,7 +51,7 @@
       <HBox alignment="CENTER" prefHeight="70.0" prefWidth="700.0">
          <children>
             <TextField fx:id="jtfSearchKey" minWidth="400.0" prefHeight="26.0" onKeyPressed="#onSearchKeyPressedAction" />
-            <Button fx:id="jBtmSearch" mnemonicParsing="false" text="搜索" onAction="#onSearchAction">
+            <Button fx:id="jBtmSearch" mnemonicParsing="false" text="%app.search" onAction="#onSearchAction">
                <HBox.margin>
                   <Insets left="40.0" />
                </HBox.margin>
@@ -69,10 +69,10 @@
             <TableView fx:id="tvTable" prefHeight="-Infinity" prefWidth="-Infinity"
                        onMouseClicked="#onTableMouseEvent" onKeyReleased="#onTableKeyReleasedEvent">
               <columns>
-                <TableColumn fx:id="name" minWidth="140" text="用户名" />
-                <TableColumn fx:id="password" minWidth="140" text="密码" />
-                <TableColumn fx:id="url" minWidth="160" text="网址" />
-                <TableColumn fx:id="desc" minWidth="180" text="描述" />
+                <TableColumn fx:id="name" minWidth="140" text="%app.userName" />
+                <TableColumn fx:id="password" minWidth="140" text="%app.password" />
+                <TableColumn fx:id="url" minWidth="160" text="%app.url" />
+                <TableColumn fx:id="desc" minWidth="180" text="%app.desc" />
               </columns>
             </TableView>
             <TextArea fx:id="jtaExpand" editable="false" focusTraversable="false" prefHeight="200.0" prefWidth="200.0" />

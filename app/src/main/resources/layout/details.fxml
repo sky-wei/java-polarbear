@@ -39,7 +39,7 @@
             <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
          </GridPane.margin>
       </TextArea>
-      <Button fx:id="jBtmOk" mnemonicParsing="false" onAction="#onOkAction" text="确定" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+      <Button fx:id="jBtmOk" mnemonicParsing="false" onAction="#onOkAction" text="%app.confirm" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="TOP">
          <GridPane.margin>
             <Insets right="20.0" />
          </GridPane.margin>

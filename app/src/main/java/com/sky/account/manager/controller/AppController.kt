@@ -18,6 +18,7 @@ package com.sky.account.manager.controller
 
 import com.sky.account.manager.PolarBear
 import com.sky.account.manager.base.BaseController
+import com.sky.account.manager.util.ResBundleUtil
 import com.sky.account.manager.util.ResUtil
 import javafx.application.Platform
 import javafx.scene.Scene
@@ -39,14 +40,16 @@ class AppController(private val polarBear: PolarBear) {
         initStage(primaryStage)
 
         if (isCreateAdminAccount()) {
-
+            "PolarBear - 注册"
             // 显示注册界面
-            setAppScene("PolarBear - 注册", "layout/register.fxml", 400.0, 300.0)
+            setAppScene(ResBundleUtil.getTitle("app.register"),
+                    "layout/register.fxml", 400.0, 300.0)
             return
         }
 
         // 显示登录界面
-        setAppScene("PolarBear - 登录", "layout/login.fxml", 400.0, 300.0)
+        setAppScene(ResBundleUtil.getTitle("app.login"),
+                "layout/login.fxml", 400.0, 300.0)
 //        setAppStage("PolarBear - sky", "layout/home.fxml", 650.0, 500.0)
     }
 
@@ -60,7 +63,7 @@ class AppController(private val polarBear: PolarBear) {
 
     fun setAppScene(title: String, layout: String, width: Double, height: Double) {
 
-        val loader = ResUtil.getFXMLLoader(layout)
+        val loader = ResUtil.getFXMLLoader(layout, ResBundleUtil.getResBundle())
         val scene = Scene(loader.load(), width, height)
 
         val controller = loader.getController<BaseController<Any>>()
@@ -89,7 +92,7 @@ class AppController(private val polarBear: PolarBear) {
 
     fun <T> showDialog(title: String, layout: String, width: Double, height: Double, param: T, callback: (T) -> Unit): Stage {
 
-        val loader = ResUtil.getFXMLLoader(layout)
+        val loader = ResUtil.getFXMLLoader(layout, ResBundleUtil.getResBundle())
         val scene = Scene(loader.load(), width, height)
 
         val dialogStage = newDialogStage()
@@ -124,7 +127,8 @@ class AppController(private val polarBear: PolarBear) {
 
         // 显示提示框
         mLoading = showDialog(
-                "提示", "layout/loading.fxml", 240.0, 100.0)
+                ResBundleUtil.getString("app.prompt"),
+                "layout/loading.fxml", 240.0, 100.0)
     }
 
     fun cancelLoading() {
