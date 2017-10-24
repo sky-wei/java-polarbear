@@ -1,7 +1,7 @@
 .root {
 	-fx-body-color : #F5F5F5;
 	-fx-outer-border : #cecece;
-	-fx-font-family: "STXinwei";
+	/*-fx-font-family: "STXinwei";*/
 	-fx-font-size: 14px;
 	-fx-font-smoothing-type: lcd;
 }

@@ -44,8 +44,8 @@ class App : Application(), PolarBear {
         super.init()
 
         // 加载字体
-        Font.loadFont(
-                ResUtil.getResourceUrl("font/hwxw.ttf"), 14.0)
+//        Font.loadFont(
+//                ResUtil.getResourceUrl("font/hwxw.ttf"), 14.0)
 
         // 异常处理
         Thread.setDefaultUncaughtExceptionHandler {
