@@ -28,7 +28,7 @@ object Constant {
 
     object App {
 
-        val VERSION = "2.0.2"
+        val VERSION = "2.0.3"
 
         val MAIL = "jingcai.wei@163.com"
 

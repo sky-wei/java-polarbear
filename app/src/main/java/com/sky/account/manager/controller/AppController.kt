@@ -77,6 +77,7 @@ class AppController(private val polarBear: PolarBear) {
 
         stage.title = title
         stage.scene = scene
+        stage.centerOnScreen()
 
         if (!stage.isShowing) stage.show()
     }
