@@ -40,7 +40,6 @@ class AppController(private val polarBear: PolarBear) {
         initStage(primaryStage)
 
         if (isCreateAdminAccount()) {
-            "PolarBear - 注册"
             // 显示注册界面
             setAppScene(ResBundleUtil.getTitle("app.register"),
                     "layout/register.fxml", 400.0, 300.0)
