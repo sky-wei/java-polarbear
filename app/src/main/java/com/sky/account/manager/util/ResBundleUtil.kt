@@ -23,7 +23,19 @@ import java.util.*
  */
 object ResBundleUtil {
 
-    private val mResBundle: ResourceBundle = ResourceBundle.getBundle("bundles.polarbear")
+    private const val mBaseName = "bundles.polarbear"
+
+    private val mResBundle: ResourceBundle
+
+    init {
+        mResBundle = try {
+            // 加载匹配的属性配置
+            ResourceBundle.getBundle(mBaseName)
+        } catch (tr: Throwable) {
+            // 异常了加载默认的
+            ResourceBundle.getBundle(mBaseName, Locale.CHINA)
+        }
+    }
 
     fun getResBundle(): ResourceBundle {
         return mResBundle
